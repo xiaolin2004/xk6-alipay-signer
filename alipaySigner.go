@@ -2,10 +2,11 @@ package xk6_alipay_signer
 
 import (
 	"fmt"
-	"github.com/alipay/global-open-sdk-go/com/alipay/api/tools"
-	"go.k6.io/k6/js/modules"
 	"strconv"
 	"time"
+
+	"github.com/alipay/global-open-sdk-go/com/alipay/api/tools"
+	"go.k6.io/k6/js/modules"
 )
 
 func init() {
@@ -37,4 +38,8 @@ func BuildBaseHeader(reqTime string, clientId string, keyVersion string, signatu
 		"Key-Version":  keyVersion,
 		"Signature":    signatureValue,
 	}
+}
+
+func (signer AlipaySigner) VerifySignature(httpMethod string, path string, clientId string, rspTimeStr string, rspBody string, signature string, alipayPublicKey string) (bool, error) {
+	return tools.Verify(httpMethod, path, clientId, rspTimeStr, rspBody, signature, alipayPublicKey)
 }
