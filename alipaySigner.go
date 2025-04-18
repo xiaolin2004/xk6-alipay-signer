@@ -40,6 +40,6 @@ func BuildBaseHeader(reqTime string, clientId string, keyVersion string, signatu
 	}
 }
 
-func (signer AlipaySigner) VerifySignature(httpMethod string, path string, clientId string, rspTimeStr string, rspBody string, signature string, alipayPublicKey string) (bool, error) {
-	return tools.Verify(httpMethod, path, clientId, rspTimeStr, rspBody, signature, alipayPublicKey)
+func (signer AlipaySigner) VerifySignature(requestUri, httpMethod, clientId, requestTime, responseBody, signature, alipayPublicKey string) (bool, error) {
+	return tools.CheckSignature(requestUri, httpMethod, clientId, requestTime, responseBody, signature, alipayPublicKey )
 }
